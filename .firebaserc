@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "default": "game-memory-20my22",
+    "memory": "game-memory-20my22"
+  },
+  "targets": {},
+  "etags": {}
+}

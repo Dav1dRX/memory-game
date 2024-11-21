@@ -1,0 +1,836 @@
+/* src/styles/index.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Variables base */
+  --primary: #4AC6ED;
+  --primary-light: #5FD4F4;
+  --primary-dark: #1E3A8A;
+  --card-bg: #FFFFFF;
+  --text: #2A2A2A;
+  --text-secondary: #666666;
+  --border: #E0E0E0;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --highlight-color: rgba(255, 255, 255, 0.8);
+  
+  /* Variables de fondo */
+  --background-primary: #ffffff;
+  --background-secondary: #1e3a8a;
+  --particles-color: rgba(30, 58, 138, 0.2);
+  --pattern-color: rgba(30, 58, 138, 0.1);
+  --accent-color: rgba(59, 130, 246, 0.15);
+  
+  /* Transición suave para cambios de tema */
+  --transition-duration: 0.3s;
+
+  /* Variables de animación */
+  --particle-count: 50;
+  --wave-height: 20px;
+  --wave-speed: 10s;
+}
+
+/* Tema oscuro */
+[data-theme="dark"] {
+  /* Variables modo oscuro */
+  --background-primary: #0f172a;
+  --background-secondary: #0ea5e9;
+  --card-bg: #1e293b;
+  --text: #e2e8f0;
+  --text-secondary: #94a3b8;
+  --border: #363636;
+  --shadow-color: rgba(0, 0, 0, 0.3);
+  --highlight-color: rgba(255, 255, 255, 0.05);
+  --particles-color: rgba(125, 211, 252, 0.2);
+  --pattern-color: rgba(125, 211, 252, 0.1);
+  --accent-color: rgba(125, 211, 252, 0.1);
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--background);
+  color: var(--text);
+  line-height: 1.5;
+  transition: background-color var(--transition-duration), 
+              color var(--transition-duration);
+}
+
+/* Estilos Neumórficos */
+.neumorph-card {
+  background: var(--card-bg);
+  border-radius: 15px;
+  box-shadow: 
+    8px 8px 16px var(--shadow-color),
+    -8px -8px 16px var(--highlight-color);
+  transition: all var(--transition-duration) ease;
+}
+
+.neumorph-card:hover {
+  box-shadow: 
+    4px 4px 8px var(--shadow-color),
+    -4px -4px 8px var(--highlight-color);
+}
+
+.neumorph-button {
+  background: var(--card-bg);
+  border: none;
+  border-radius: 10px;
+  box-shadow: 
+    5px 5px 10px var(--shadow-color),
+    -5px -5px 10px var(--highlight-color);
+  transition: all 0.2s ease;
+}
+
+.neumorph-button:hover {
+  box-shadow: 
+    inset 3px 3px 6px var(--shadow-color),
+    inset -3px -3px 6px var(--highlight-color);
+  transform: scale(0.98);
+}
+
+.neumorph-inset {
+  background: var(--card-bg);
+  border-radius: 10px;
+  box-shadow: 
+    inset 4px 4px 8px var(--shadow-color),
+    inset -4px -4px 8px var(--highlight-color);
+}
+
+.card-flip {
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  transition: transform 0.6s;
+}
+
+.card-flip.flipped {
+  transform: rotateY(180deg);
+}
+
+.card-content {
+  backface-visibility: hidden;
+}
+
+.animate-score {
+  animation: scorePopup 0.3s ease-out;
+}
+
+@keyframes scorePopup {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+.game-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.glow-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.glow-effect::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    45deg,
+    transparent 0%,
+    rgba(74, 198, 237, 0.1) 50%,
+    transparent 100%
+  );
+  transition: transform 0.6s;
+  transform: translateX(-100%);
+}
+
+.glow-effect:hover::after {
+  transform: translateX(100%);
+}
+
+/* Nuevas animaciones */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+.float-animation {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Efectos de brillo para elementos activos */
+.active-glow {
+  box-shadow: 0 0 15px var(--primary);
+  border: 1px solid var(--primary-light);
+}
+
+/* Gradiente animado para backgrounds */
+.gradient-bg {
+  background: linear-gradient(
+    45deg,
+    var(--background),
+    var(--card-bg),
+    var(--background)
+  );
+  background-size: 200% 200%;
+  animation: gradientMove 15s ease infinite;
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Estilos responsivos para el ScoreBoard */
+@media (max-width: 768px) {
+  .scoreboard-container {
+    position: relative !important;
+    top: auto !important;
+    right: auto !important;
+    width: 100% !important;
+    margin-top: 2rem;
+    padding: 0 1rem;
+  }
+  
+  .game-grid {
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  }
+  
+  .header-content {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .player-info {
+    width: 100%;
+    justify-content: space-around;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+:root {
+  /* Mantener variables existentes y agregar nuevas */
+  --glow-primary: rgba(74, 198, 237, 0.15);
+  --accent-gradient: linear-gradient(135deg, var(--primary-light), var(--primary));
+  --card-blur: blur(16px);
+}
+
+/* Mejora de las tarjetas neumórficas existentes */
+.neumorph-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+/* Efecto de brillo ambiental */
+.neumorph-card::before {
+  content: '';
+  position: absolute;
+  inset: -50%;
+  background: radial-gradient(
+    circle at center,
+    var(--glow-primary),
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.neumorph-card:hover::before {
+  opacity: 1;
+}
+
+/* Líneas decorativas futuristas */
+.neumorph-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(to right, transparent, transparent 50%, var(--primary-light) 50%, transparent 51%),
+    linear-gradient(to bottom, transparent, transparent 50%, var(--primary-light) 50%, transparent 51%);
+  background-size: 60px 60px;
+  opacity: 0.03;
+  pointer-events: none;
+}
+
+/* Mejora del efecto de brillo */
+.glow-effect::after {
+  background: linear-gradient(
+    45deg,
+    transparent 0%,
+    var(--glow-primary) 25%,
+    var(--primary-light) 50%,
+    var(--glow-primary) 75%,
+    transparent 100%
+  );
+  opacity: 0.5;
+}
+
+/* Efecto de borde brillante */
+.active-glow {
+  box-shadow: 
+    0 0 15px var(--primary),
+    inset 0 0 5px var(--primary-light);
+  border: 1px solid var(--primary-light);
+}
+
+/* Animación de pulso suave para elementos activos */
+@keyframes softPulse {
+  0% { opacity: 0.5; }
+  50% { opacity: 1; }
+  100% { opacity: 0.5; }
+}
+
+.pulse-animation {
+  animation: softPulse 2s ease-in-out infinite;
+}
+
+/* Efecto de cristal para el header */
+.bg-card-bg\/50 {
+  backdrop-filter: var(--card-blur);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0.05)
+  );
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Mejora de botones neumórficos */
+.neumorph-button {
+  position: relative;
+  overflow: hidden;
+}
+
+.neumorph-button::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--accent-gradient);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.neumorph-button:hover::before {
+  opacity: 0.1;
+}
+
+/* Decoración para el tablero de juego */
+.game-grid {
+  position: relative;
+}
+
+.game-grid::before {
+  content: '';
+  position: absolute;
+  inset: -20px;
+  background: 
+    radial-gradient(circle at top left, var(--glow-primary), transparent 70%),
+    radial-gradient(circle at bottom right, var(--glow-primary), transparent 70%);
+  opacity: 0.3;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Mejora de las animaciones de las cartas */
+.card-flip {
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Efecto de resplandor para puntuaciones */
+.text-primary {
+  text-shadow: 0 0 10px var(--primary-light);
+}
+
+/* Indicador de jugador actual mejorado */
+[data-current-player="true"] {
+  position: relative;
+}
+
+[data-current-player="true"]::after {
+  content: '';
+  position: absolute;
+  left: -10px;
+  right: -10px;
+  bottom: -5px;
+  height: 2px;
+  background: var(--accent-gradient);
+  animation: softPulse 2s ease-in-out infinite;
+}
+
+
+:root {
+  /* Mantener variables existentes */
+  --grid-size: 30px;
+  --grid-color: rgba(74, 198, 237, 0.03);
+  --dot-size: 2px;
+  --dot-color: rgba(74, 198, 237, 0.07);
+}
+
+[data-theme="dark"] {
+  /* Mantener variables dark existentes */
+  --grid-color: rgba(74, 198, 237, 0.05);
+  --dot-color: rgba(74, 198, 237, 0.1);
+}
+
+/* Fondo base con gradiente sutil */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: 
+    radial-gradient(circle at 0% 0%, var(--primary-light) 0%, transparent 50%),
+    radial-gradient(circle at 100% 100%, var(--primary-dark) 0%, transparent 50%);
+  opacity: 0.05;
+  z-index: -2;
+}
+
+/* Patrón de cuadrícula */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: 
+    linear-gradient(var(--grid-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px),
+    radial-gradient(circle at center, var(--dot-color) var(--dot-size), transparent var(--dot-size));
+  background-size: var(--grid-size) var(--grid-size);
+  mask-image: radial-gradient(ellipse at center, 
+    rgba(0, 0, 0, 1) 0%, 
+    rgba(0, 0, 0, 0.8) 50%, 
+    transparent 100%);
+  z-index: -1;
+}
+
+/* Animación de desplazamiento sutil para el fondo */
+@keyframes subtleFloat {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: calc(var(--grid-size) * 2) calc(var(--grid-size) * 2);
+  }
+}
+
+/* Efecto de partículas flotantes */
+.floating-particles {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  opacity: 0.4;
+}
+
+.particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: var(--primary-light);
+  border-radius: 50%;
+  filter: blur(1px);
+  animation: float-particle 20s infinite linear;
+}
+
+.particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: var(--particles-color);
+  border-radius: 50%;
+  filter: blur(1px);
+  pointer-events: none;
+  animation: float 20s infinite linear;
+}
+
+@keyframes float-particle {
+  0% {
+    transform: translateY(100vh) translateX(0);
+  }
+  100% {
+    transform: translateY(-100px) translateX(100px);
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(100vh) rotate(0deg);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(-100px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Elemento contenedor principal mejorado */
+#root {
+  position: relative;
+  z-index: 1;
+  background: 
+    linear-gradient(
+      to bottom,
+      transparent,
+      var(--background) 100px,
+      var(--background)
+    );
+}
+
+/* Ajuste del contenedor principal */
+.container {
+  position: relative;
+  z-index: 2;
+}
+
+.particles {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: var(--particles-light);
+  border-radius: 50%;
+  filter: blur(1px);
+  animation: particleFloat 20s infinite linear;
+}
+
+[data-theme="dark"] .particle {
+  background: var(--particles-dark);
+}
+
+@keyframes particleFloat {
+  0% {
+    transform: translateY(100vh) rotate(0deg);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Fondo mejorado */
+.gradient-bg {
+  background: 
+    linear-gradient(135deg, 
+      var(--gradient-light-1) 0%,
+      var(--gradient-light-2) 50%,
+      var(--gradient-light-3) 100%
+    );
+  position: relative;
+  overflow: hidden;
+}
+
+[data-theme="dark"] .gradient-bg {
+  background: 
+    linear-gradient(135deg, 
+      var(--gradient-dark-1) 0%,
+      var(--gradient-dark-2) 50%,
+      var(--gradient-dark-3) 100%
+    );
+}
+
+.gradient-bg {
+  background: 
+    linear-gradient(
+      135deg,
+      var(--background-gradient-1) 0%,
+      var(--background-primary) 50%,
+      var(--background-gradient-2) 100%
+    );
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+/* Hexágonos flotantes */
+.hexagon-grid {
+  position: absolute;
+  inset: 0;
+  opacity: 0.1;
+  mask-image: linear-gradient(to bottom, transparent, black 20%, black 80%, transparent);
+  pointer-events: none;
+}
+
+.hexagon {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  background: var(--primary-light);
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  animation: floatHexagon 20s infinite linear;
+  opacity: 0.1;
+}
+
+/* Líneas de conexión */
+.connection-lines {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(45deg, var(--primary-light) 1px, transparent 1px),
+    linear-gradient(-45deg, var(--primary-light) 1px, transparent 1px);
+  background-size: 50px 50px;
+  opacity: 0.05;
+  animation: moveLines 20s linear infinite;
+}
+
+.connection-lines {
+  position: fixed;
+  inset: 0;
+  background-image: 
+    linear-gradient(45deg, var(--particles-color) 1px, transparent 1px),
+    linear-gradient(-45deg, var(--particles-color) 1px, transparent 1px);
+  background-size: 50px 50px;
+  opacity: 0.1;
+  pointer-events: none;
+}
+
+/* Orbes brillantes */
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, var(--primary-light), transparent);
+  filter: blur(20px);
+  opacity: 0.2;
+  animation: orbFloat 15s ease-in-out infinite;
+}
+
+@keyframes floatHexagon {
+  from {
+    transform: translateY(-100%) rotate(0deg);
+  }
+  to {
+    transform: translateY(100vh) rotate(360deg);
+  }
+}
+
+@keyframes moveLines {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 50px 50px;
+  }
+}
+
+@keyframes orbFloat {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(20px, -20px);
+  }
+}
+
+/* Asegurarnos que el contenido esté por encima de los efectos */
+.relative.z-10 {
+  position: relative;
+  z-index: 10;
+}
+
+.background-patterns {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+
+.top-pattern {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 16rem;
+  height: 16rem;
+  opacity: 0.1;
+}
+
+.pattern-cell {
+  float: left;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid var(--pattern-color);
+  transform: rotate(45deg);
+}
+
+.decorative-circles {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.circle {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--circle-color);
+}
+
+.circle-1 {
+  width: 16rem;
+  height: 16rem;
+  transform: translate(-8rem, 8rem);
+}
+
+.circle-2 {
+  width: 12rem;
+  height: 12rem;
+  transform: translate(-6rem, 6rem);
+}
+
+.decorative-lines {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 16rem;
+  height: 16rem;
+  opacity: 0.1;
+}
+
+.line {
+  position: absolute;
+  height: 1px;
+  width: 200px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--line-color),
+    transparent
+  );
+}
+
+.pattern-overlay {
+  position: fixed;
+  inset: 0;
+  background-image: 
+    linear-gradient(var(--pattern-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--pattern-color) 1px, transparent 1px);
+  background-size: 50px 50px;
+  opacity: 0.1;
+  pointer-events: none;
+}
+
+.pattern-overlay {
+  position: fixed;
+  inset: 0;
+  background-image: 
+    linear-gradient(var(--grid-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+  background-size: 50px 50px;
+  opacity: 0.4;
+  mask-image: radial-gradient(circle at center, 
+    rgba(0, 0, 0, 1) 0%, 
+    rgba(0, 0, 0, 0.2) 70%, 
+    transparent 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.particles-container {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: var(--pattern-color);
+  border-radius: 50%;
+  filter: blur(1px);
+  animation: floatParticle 20s linear infinite;
+}
+
+@keyframes floatParticle {
+  0% {
+    transform: translateY(100vh) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.gradient-bg::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: 
+    radial-gradient(circle at 0% 0%, var(--accent-color) 0%, transparent 50%),
+    radial-gradient(circle at 100% 100%, var(--accent-color) 0%, transparent 50%);
+  opacity: 0.8;
+  z-index: 0;
+}
+
+/* Patrón de cuadrícula en las esquinas */
+.gradient-bg::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: 
+    linear-gradient(45deg, var(--corner-pattern) 25%, transparent 25%) -10px 0,
+    linear-gradient(-45deg, var(--corner-pattern) 25%, transparent 25%) -10px 0,
+    linear-gradient(45deg, transparent 75%, var(--corner-pattern) 75%),
+    linear-gradient(-45deg, transparent 75%, var(--corner-pattern) 75%);
+  background-size: 20px 20px;
+  mask-image: 
+    radial-gradient(circle at 0 0, black 0%, transparent 60%),
+    radial-gradient(circle at 100% 100%, black 0%, transparent 60%);
+  z-index: 1;
+}
+
+/* Efecto de brillo ambiental */
+.ambient-light {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(
+    circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    var(--accent-color) 0%,
+    transparent 60%
+  );
+  opacity: 0.4;
+  pointer-events: none;
+  z-index: 3;
+  transition: opacity 0.3s ease;
+}
